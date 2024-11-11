@@ -24,6 +24,9 @@ public class QuestionPage extends AbsBasePage {
     @FindBy(xpath = "//button[text()= 'Create']")
     WebElement addQuestion;
 
+    @FindBy(xpath = "//table/tbody[1]/tr/child::td[13]")
+    WebElement questionId;
+
 
     public void createNewQuestion(String newQuestion){
         waiter.waitForCondition(ExpectedConditions.elementToBeClickable(questionButton));
@@ -41,5 +44,14 @@ public class QuestionPage extends AbsBasePage {
 
         return waiter.waitForCondition(ExpectedConditions.visibilityOfElementLocated(questionLocator));
     }
+
+    public String getQuestionId(){
+        waiter.waitForCondition(ExpectedConditions.visibilityOf(questionButton));
+        questionButton.click();
+        waiter.waitForCondition(ExpectedConditions.visibilityOf(questionId));
+        String lastQuestionId = questionId.getText();
+        return lastQuestionId;
+    }
+
 
 }
